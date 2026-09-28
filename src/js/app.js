@@ -22,8 +22,10 @@ function writeMode(mode) {
 function renderLegend(container) {
   container.innerHTML = ORGANISMS.map(
     (o) =>
-      `<button type="button" class="hotspot-chip hover:border-teal/40 transition-soil" data-org="${o.id}" aria-label="Show ${o.label}">
-        <span class="dot" style="background:${o.accent}"></span>${o.label}
+      `<button type="button" class="hotspot-chip" data-org="${o.id}" aria-label="Show ${o.label}">
+        <span class="dot" style="background:${o.accent}"></span>
+        <span class="chip-label">${o.label}</span>
+        <span class="chip-zone">${o.zone || ""}</span>
       </button>`
   ).join("");
 }
@@ -31,9 +33,9 @@ function renderLegend(container) {
 function renderSources(listEl) {
   listEl.innerHTML = CITATIONS.map(
     (c) =>
-      `<li class="mb-3 last:mb-0">
-        <span class="font-mono text-[0.62rem] tracking-widest uppercase text-teal">${c.short}</span>
-        <p class="m-0 mt-1 text-[0.8rem] leading-relaxed text-mist">${c.full}</p>
+      `<li class="source-item">
+        <span class="source-short">${c.short}</span>
+        <p class="source-full">${c.full}</p>
       </li>`
   ).join("");
 }
@@ -55,24 +57,26 @@ function renderDetail(panel, orgId, mode) {
 
   let citesHtml = "";
   if (mode === MODES.ADVANCED && copy.cites && copy.cites.length) {
-    citesHtml = `<div class="mt-4 space-y-2">
+    citesHtml = `<div class="cite-stack">
       ${copy.cites
         .map((id) => {
           const c = citationById(id);
-          return c ? `<blockquote class="cite"><span class="font-mono text-[0.6rem] tracking-widest uppercase text-teal block mb-1">${c.short}</span>${c.full}</blockquote>` : "";
+          return c
+            ? `<blockquote class="cite"><span class="cite-tag">${c.short}</span>${c.full}</blockquote>`
+            : "";
         })
         .join("")}
     </div>`;
   }
 
   body.innerHTML = `
-    <div class="flex items-center gap-2 mb-2">
-      <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${org.accent}" aria-hidden="true"></span>
-      <p class="m-0 font-mono text-[0.62rem] tracking-widest uppercase text-mist-dim">${mode === MODES.ADVANCED ? "Advanced" : "Simple"} reading</p>
+    <div class="detail-meta">
+      <span class="detail-swatch" style="background:${org.accent}" aria-hidden="true"></span>
+      <p class="detail-kicker">${org.zone || "Rhizosphere"} · ${mode === MODES.ADVANCED ? "Advanced" : "Simple"}</p>
     </div>
-    <h2 class="m-0 font-display font-normal text-[1.55rem] text-ink leading-tight">${copy.title}</h2>
-    <p class="mt-2 mb-3 text-[0.95rem] text-teal-deep leading-snug">${copy.lede}</p>
-    <p class="m-0 text-[0.88rem] leading-relaxed text-mist">${copy.body}</p>
+    <h2 class="detail-title">${copy.title}</h2>
+    <p class="detail-lede">${copy.lede}</p>
+    <p class="detail-body">${copy.body}</p>
     ${citesHtml}
   `;
 }
@@ -85,13 +89,20 @@ function setModeButtons(mode) {
   });
 }
 
+function syncLegendSelection(legend, id) {
+  legend.querySelectorAll("[data-org]").forEach((chip) => {
+    const on = chip.getAttribute("data-org") === id;
+    chip.classList.toggle("is-active", on);
+    chip.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+}
+
 function registerSW() {
   if (!("serviceWorker" in navigator)) return;
   const isLocal =
     location.hostname === "localhost" ||
     location.hostname === "127.0.0.1" ||
     location.protocol === "file:";
-  // Register on http(s) hosts (GitHub Pages or local static server)
   if (location.protocol !== "https:" && !isLocal) return;
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js").catch((err) => {
@@ -112,8 +123,8 @@ function init() {
   if (modeStatus) {
     modeStatus.textContent =
       mode === MODES.ADVANCED
-        ? "Advanced mode shows mechanisms and citations."
-        : "Simple mode keeps the story short and clear.";
+        ? "Mechanisms, pathways, and primary literature."
+        : "Full-sentence ecology without jargon overload.";
   }
 
   renderLegend(legend);
@@ -123,10 +134,7 @@ function init() {
   const scene = new RhizosphereScene(canvas, {
     onSelect(id) {
       renderDetail(panel, id, mode);
-      legend.querySelectorAll("[data-org]").forEach((chip) => {
-        chip.classList.toggle("ring-1", chip.getAttribute("data-org") === id);
-        chip.classList.toggle("ring-teal/50", chip.getAttribute("data-org") === id);
-      });
+      syncLegendSelection(legend, id);
       if (id) {
         panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
@@ -141,8 +149,8 @@ function init() {
       if (modeStatus) {
         modeStatus.textContent =
           mode === MODES.ADVANCED
-            ? "Advanced mode shows mechanisms and citations."
-            : "Simple mode keeps the story short and clear.";
+            ? "Mechanisms, pathways, and primary literature."
+            : "Full-sentence ecology without jargon overload.";
       }
       renderDetail(panel, scene.selectedId, mode);
     });
@@ -151,8 +159,7 @@ function init() {
   legend.addEventListener("click", (e) => {
     const chip = e.target.closest("[data-org]");
     if (!chip) return;
-    const id = chip.getAttribute("data-org");
-    scene.select(id);
+    scene.select(chip.getAttribute("data-org"));
   });
 
   const sourcesToggle = $("#sources-toggle");
@@ -165,6 +172,9 @@ function init() {
       sourcesToggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
   }
+
+  // Prevent context menu on canvas when brush-revealing with right-click
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
 
   registerSW();
 }

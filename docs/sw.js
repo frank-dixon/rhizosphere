@@ -1,5 +1,5 @@
 /* Rhizosphere PWA — app-shell cache */
-const SHELL_CACHE = "rhizosphere-shell-v1";
+const SHELL_CACHE = "rhizosphere-shell-v2";
 
 const SHELL_ASSETS = [
   "./",

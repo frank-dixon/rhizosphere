@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="Rhizosphere — an interactive soil cross-section exploring root exudates, nitrogen fixers, mycorrhizal fungi, decomposers, and pathogens." />
+  <meta name="description" content="Rhizosphere — an editorial soil cross-section exploring root exudates, nitrogen fixation, mycorrhizal exchange, saprotrophs, pathogen pressure, and rhizoplane biofilms." />
   <meta name="theme-color" content="#F5F0E6" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Rhizosphere" />
-  <title>Rhizosphere — root–microbe soil cross-section</title>
+  <title>Rhizosphere — root–microbe soil ecology</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
@@ -35,54 +35,54 @@
     </div>
   </header>
 
-  <main id="main" class="flex-1 w-full max-w-[1120px] mx-auto px-4 py-6 md:py-8">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-      <div class="max-w-xl">
-        <p class="m-0 font-mono text-[0.62rem] tracking-brand uppercase text-teal">Microbiology · soil ecology</p>
-        <h1 class="m-0 mt-1 font-display font-normal text-[clamp(2rem,5vw,2.75rem)] tracking-wide text-ink leading-tight">Rhizosphere</h1>
-        <p class="mt-2 mb-0 text-[0.92rem] leading-relaxed text-mist max-w-[42ch]">
-          Pan a living soil cross-section. Tap a hotspot to meet the microbes that trade, recycle, and contest the thin world around a root.
+  <main id="main" class="flex-1 w-full max-w-[1120px] mx-auto px-4 py-7 md:py-10">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-7">
+      <div class="max-w-2xl">
+        <p class="m-0 font-mono text-[0.6rem] tracking-brand uppercase text-teal">Soil ecology · microbial interfaces</p>
+        <h1 class="m-0 mt-1.5 font-display font-normal text-[clamp(2.1rem,5vw,2.85rem)] tracking-wide text-ink leading-[1.1]">Rhizosphere</h1>
+        <p class="mt-3 mb-0 text-[0.92rem] leading-relaxed text-mist max-w-[48ch]">
+          An interactive soil cross-section of the root–microbe interface. Pan the scene, scroll to dig through horizon depth, and select organisms along the continuum from rhizoplane to bulk soil.
         </p>
       </div>
       <div class="flex flex-col items-start md:items-end gap-2 shrink-0">
-        <div class="flex gap-1.5" role="group" aria-label="Reading depth">
+        <div class="flex gap-1" role="group" aria-label="Reading depth">
           <button type="button" class="mode-btn" data-mode="simple" aria-pressed="true">Simple</button>
           <button type="button" class="mode-btn" data-mode="advanced" aria-pressed="false">Advanced</button>
         </div>
-        <p id="mode-status" class="m-0 text-[0.72rem] text-mist-dim max-w-[28ch] md:text-right" role="status"></p>
+        <p id="mode-status" class="m-0 text-[0.7rem] text-mist-dim max-w-[26ch] md:text-right leading-snug" role="status"></p>
       </div>
     </div>
 
-    <div class="scene-frame h-[min(62vh,520px)] min-h-[320px] mb-5" id="scene-frame">
+    <div class="scene-frame h-[min(64vh,560px)] min-h-[340px] mb-4" id="scene-frame">
       <canvas
         id="soil-canvas"
         class="absolute inset-0 w-full h-full block"
         role="img"
-        aria-label="Interactive soil cross-section. Drag to pan. Activate hotspots for organism details."
+        aria-label="Interactive soil cross-section. Drag to pan, scroll to adjust dig depth, Shift-drag to brush-reveal microbial fields. Arrow keys pan; Tab cycles organisms."
       ></canvas>
-      <p class="absolute bottom-3 left-3 m-0 text-[0.65rem] tracking-wide2 uppercase text-root-cream/40 pointer-events-none">
-        Drag to pan · tap a glow
+      <p class="scene-hint">
+        Drag pan · scroll dig · Shift-brush · Tab select
       </p>
     </div>
 
-    <div id="organism-legend" class="flex flex-wrap gap-2 mb-6" aria-label="Organisms"></div>
+    <div id="organism-legend" class="flex flex-wrap gap-1.5 mb-7" aria-label="Organisms"></div>
 
-    <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-5 items-start">
+    <div class="grid md:grid-cols-[1.15fr_0.85fr] gap-4 items-start">
       <aside id="detail-panel" class="detail-panel" aria-live="polite">
         <div id="detail-empty">
-          <p class="m-0 font-mono text-[0.62rem] tracking-widest uppercase text-mist-dim">Detail</p>
-          <h2 class="m-0 mt-1 font-display font-normal text-[1.35rem] text-ink">Choose a neighbor</h2>
-          <p class="mt-2 mb-0 text-[0.88rem] leading-relaxed text-mist">
-            Select a glowing hotspot in the scene—or a chip above—to read how that organism shapes life at the root surface.
+          <p class="m-0 font-mono text-[0.6rem] tracking-widest uppercase text-mist-dim">Selection</p>
+          <h2 class="m-0 mt-1.5 font-display font-normal text-[1.35rem] text-ink">Inspect a compartment</h2>
+          <p class="mt-2.5 mb-0 text-[0.88rem] leading-relaxed text-mist">
+            Choose a marker in the cross-section—or a chip above—to read how that guild shapes chemistry, competition, and exchange at the root surface. Dig depth reveals microbial fields and horizon labels.
           </p>
         </div>
         <div id="detail-body" hidden></div>
       </aside>
 
       <section class="detail-panel" aria-labelledby="about-heading">
-        <h2 id="about-heading" class="m-0 font-display font-normal text-[1.25rem] text-ink">What you are looking at</h2>
-        <p class="mt-2 mb-3 text-[0.88rem] leading-relaxed text-mist">
-          The rhizosphere is the narrow soil sleeve under the influence of living roots. Exudates feed and recruit microbes; symbionts deliver nitrogen and phosphorus; decomposers recycle necromass; pathogens probe for weakness. This scene keeps one cross-section in focus rather than spreading thin across many screens.
+        <h2 id="about-heading" class="m-0 font-display font-normal text-[1.2rem] text-ink">The root–soil continuum</h2>
+        <p class="mt-2.5 mb-3 text-[0.86rem] leading-relaxed text-mist">
+          The rhizosphere is the narrow sleeve of soil under the chemical influence of living roots. Exudates recruit and feed microbes; nitrogen-fixing rhizobia and Bradyrhizobium colonize nodules; arbuscular mycorrhizal fungi trade phosphate for carbon; saprotrophs remineralize necromass at the bulk margin; pathogens such as Fusarium probe for weakness; biofilms on the rhizoplane coordinate via quorum sensing. This study keeps one cross-section in focus.
         </p>
         <button
           type="button"
@@ -101,8 +101,8 @@
   </main>
 
   <footer class="border-t border-ink/10 mt-auto">
-    <div class="max-w-[1120px] mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.72rem] text-mist-dim">
-      <p class="m-0">Frank Dixon · Rhizosphere portfolio study</p>
+    <div class="max-w-[1120px] mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.7rem] text-mist-dim">
+      <p class="m-0">Frank Dixon · Rhizosphere</p>
       <a class="text-mist hover:text-teal no-underline transition-colors" href="https://github.com/frank-dixon/rhizosphere" rel="noopener">Source on GitHub</a>
     </div>
   </footer>
