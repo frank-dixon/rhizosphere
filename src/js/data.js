@@ -1,0 +1,146 @@
+/**
+ * Rhizosphere — organism copy + citations.
+ * Simple: short editorial sentences. Advanced: mechanism + citation hooks.
+ */
+
+export const MODES = Object.freeze({ SIMPLE: "simple", ADVANCED: "advanced" });
+
+export const CITATIONS = [
+  {
+    id: "bais2006",
+    short: "Bais et al. 2006",
+    full: "Bais, H. P., Weir, T. L., Perry, L. G., Gilroy, S., & Vivanco, J. M. (2006). The role of root exudates in rhizosphere interactions with plants and other organisms. Annual Review of Plant Biology, 57, 233–266.",
+  },
+  {
+    id: "philippot2013",
+    short: "Philippot et al. 2013",
+    full: "Philippot, L., Raaijmakers, J. M., Lemanceau, P., & van der Putten, W. H. (2013). Going back to the roots: the microbial ecology of the rhizosphere. Nature Reviews Microbiology, 11(11), 789–799.",
+  },
+  {
+    id: "oldroyd2013",
+    short: "Oldroyd 2013",
+    full: "Oldroyd, G. E. D. (2013). Speak, friend, and enter: signalling systems that promote beneficial symbiotic associations in plants. Nature Reviews Microbiology, 11(4), 252–263.",
+  },
+  {
+    id: "smith2011",
+    short: "Smith & Smith 2011",
+    full: "Smith, S. E., & Smith, F. A. (2011). Roles of arbuscular mycorrhizas in plant nutrition and growth: new paradigms from cellular to ecosystem scales. Annual Review of Plant Biology, 62, 227–250.",
+  },
+  {
+    id: "mendes2011",
+    short: "Mendes et al. 2011",
+    full: "Mendes, R., Kruijt, M., de Bruijn, I., Dekkers, E., van der Voort, M., Schneider, J. H. M., … Raaijmakers, J. M. (2011). Deciphering the rhizosphere microbiome for disease-suppressive bacteria. Science, 332(6033), 1097–1100.",
+  },
+];
+
+/** Hotspot positions are in scene world coords (logical 960×640). */
+export const ORGANISMS = [
+  {
+    id: "exudates",
+    label: "Root exudates",
+    accent: "#7a9e6e",
+    x: 420,
+    y: 280,
+    r: 28,
+    layer: "near",
+    simple: {
+      title: "Root exudates",
+      lede: "Living roots leak sugars, organic acids, and signals into the thin soil sleeve around them.",
+      body: "Those drips are not waste. They feed microbes, change local chemistry, and invite partners while keeping rivals at a distance. The rhizosphere exists because roots keep talking into the dark.",
+    },
+    advanced: {
+      title: "Root exudates",
+      lede: "Exudation shapes microbial assembly within millimeters of the root surface.",
+      body: "Plants release rhizodeposits—sugars, amino acids, phenolics, and signaling molecules—that select for cooperative taxa and alter nutrient availability. Exudate profiles shift with plant genotype, developmental stage, and stress, so the microbiome is partly a plant-authored niche rather than a random soil sample.",
+      cites: ["bais2006", "philippot2013"],
+    },
+  },
+  {
+    id: "rhizobium",
+    label: "Rhizobium",
+    accent: "#6aad7a",
+    x: 310,
+    y: 360,
+    r: 26,
+    layer: "mid",
+    simple: {
+      title: "Nitrogen-fixing Rhizobium",
+      lede: "Certain soil bacteria trade fixed nitrogen for a home inside root nodules of legumes.",
+      body: "The plant builds a soft lodging for the microbe; the microbe converts inert air nitrogen into forms the plant can use. It is one of the planet’s oldest agricultural alliances, written in chemical greetings before either partner commits.",
+    },
+    advanced: {
+      title: "Rhizobium · symbiotic N₂ fixation",
+      lede: "Flavonoid–Nod-factor signaling opens the door to intracellular nitrogen fixation.",
+      body: "Compatible rhizobia sense host flavonoids and reply with Nod factors that trigger cortical cell division and infection-thread formation. Inside the nodule, bacteroids express nitrogenase under a carefully managed oxygen micro-environment, exchanging NH₃ for plant carbon. The shared symbiotic pathway with mycorrhizas hints at deep evolutionary reuse of plant–microbe dialogue.",
+      cites: ["oldroyd2013", "philippot2013"],
+    },
+  },
+  {
+    id: "amf",
+    label: "AM fungi",
+    accent: "#a888b8",
+    x: 560,
+    y: 390,
+    r: 30,
+    layer: "mid",
+    simple: {
+      title: "Arbuscular mycorrhizal fungi",
+      lede: "Thread-like fungi lace into root cells and reach far beyond the root hair zone.",
+      body: "In exchange for plant sugars, they deliver phosphorus and other scarce minerals from soil pores the root alone cannot touch. Most land plants keep this partnership; it is less a rare specialty than the default underground network.",
+    },
+    advanced: {
+      title: "AM fungi · mineral delivery network",
+      lede: "Extraradical hyphae extend the plant’s foraging radius for phosphate and beyond.",
+      body: "Arbuscular mycorrhizal fungi form intracellular arbuscules where nutrient exchange is concentrated. Hyphae explore micropores roots cannot enter, improving P acquisition and buffering drought and pathogen pressure. The common symbiotic signaling pathway shared with rhizobia shows how plants gate beneficial entry with overlapping molecular keys.",
+      cites: ["smith2011", "oldroyd2013"],
+    },
+  },
+  {
+    id: "decomposer",
+    label: "Decomposers",
+    accent: "#b87a52",
+    x: 680,
+    y: 470,
+    r: 24,
+    layer: "far",
+    simple: {
+      title: "Decomposer guilds",
+      lede: "Bacteria and saprotrophic fungi unlock carbon locked in dead roots, litter, and microbial corpses.",
+      body: "Their slow digestion turns residue into minerals and humus that later plants can use. Without them, the rhizosphere would starve on a pile of unfinished meals.",
+    },
+    advanced: {
+      title: "Decomposers · nutrient recycling",
+      lede: "Saprotrophs remineralize organic matter at the edge of living rhizodeposits.",
+      body: "Outside the immediate exudate zone, decomposer consortia break down complex polymers—cellulose, lignin fragments, necromass—releasing mineral N and P that diffuse back toward roots. Competition between decomposers and symbiotic partners for carbon and nutrients continuously remakes community structure along the root–bulk soil continuum.",
+      cites: ["philippot2013"],
+    },
+  },
+  {
+    id: "fusarium",
+    label: "Fusarium",
+    accent: "#a85050",
+    x: 200,
+    y: 440,
+    r: 22,
+    layer: "far",
+    simple: {
+      title: "Fusarium · opportunistic pathogen",
+      lede: "Not every neighbor is a friend. Some fungi invade roots when defenses slip.",
+      body: "Fusarium species can wilt crops from the inside, but disease-suppressive soils keep them in check with rival microbes and plant immune readiness. The rhizosphere is a contested border, not a peaceful garden.",
+    },
+    advanced: {
+      title: "Fusarium · rhizosphere pathogen pressure",
+      lede: "Pathogens exploit wounds, stress, and thin protective microbiomes.",
+      body: "Soilborne Fusarium can colonize the rhizosphere, enter vascular tissue, and disrupt water transport. Disease-suppressive soils enrich antagonistic bacteria that compete for niches and produce antifungal metabolites—evidence that microbiome composition, not just host genotype, decides outbreak versus quiet coexistence.",
+      cites: ["mendes2011", "philippot2013"],
+    },
+  },
+];
+
+export function citationById(id) {
+  return CITATIONS.find((c) => c.id === id);
+}
+
+export function organismById(id) {
+  return ORGANISMS.find((o) => o.id === id);
+}

@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Rhizosphere — soil earth-tone custom layers */
+@layer base {
+  html {
+    @apply scroll-smooth h-full;
+  }
+  body {
+    @apply m-0 min-h-full bg-soil-deep text-ink font-sans text-[15px] font-normal antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ochre;
+  }
+}
+
+@layer components {
+  .hub-masthead {
+    @apply border-b backdrop-blur-md sticky top-0 z-50;
+    border-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(26, 18, 12, 0.92);
+  }
+  .hub-nav {
+    @apply flex items-center justify-between gap-4 px-4 py-3 max-w-[1120px] mx-auto w-full;
+  }
+  .hub-wordmark {
+    @apply font-display text-[0.95rem] tracking-wide text-root-pale no-underline transition-colors;
+  }
+  .hub-wordmark:hover {
+    @apply text-ochre-bright;
+  }
+  .hub-wordmark span {
+    @apply text-ochre;
+  }
+  .hub-links {
+    @apply flex flex-wrap gap-x-4 gap-y-1 list-none m-0 p-0;
+  }
+  .hub-links a {
+    @apply text-[0.72rem] tracking-wide2 uppercase text-mist no-underline transition-colors;
+  }
+  .hub-links a:hover {
+    @apply text-root-cream;
+  }
+
+  .mode-btn {
+    @apply text-[0.68rem] tracking-widest uppercase px-3 py-1.5 border text-mist rounded-sm cursor-pointer;
+    border-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(61, 46, 34, 0.6);
+    transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-duration: 280ms;
+  }
+  .mode-btn:hover {
+    @apply text-root-cream;
+    border-color: rgba(196, 163, 90, 0.5);
+  }
+  .mode-btn.on {
+    @apply bg-umber-deep text-root-pale;
+    border-color: rgba(196, 163, 90, 0.55);
+    box-shadow: 0 0 18px rgba(196, 163, 90, 0.18);
+  }
+
+  .scene-frame {
+    @apply relative overflow-hidden rounded-2xl bg-soil-dark;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 80px rgba(26, 18, 12, 0.65), 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .detail-panel {
+    @apply backdrop-blur-md rounded-xl p-5 animate-panel-in;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(26, 18, 12, 0.88);
+  }
+
+  .hotspot-chip {
+    @apply inline-flex items-center gap-2 text-[0.68rem] tracking-wide2 uppercase px-2.5 py-1 rounded-full text-mist;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  .hotspot-chip .dot {
+    @apply w-2 h-2 rounded-full shrink-0;
+  }
+
+  .cite {
+    @apply text-[0.78rem] leading-relaxed text-mist pl-3 my-2;
+    border-left: 2px solid rgba(196, 163, 90, 0.4);
+  }
+
+  .skip-link {
+    @apply absolute left-4 z-[100] bg-ochre text-soil-deep px-3 py-2 font-medium rounded-sm;
+    top: -6rem;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
+
+@layer utilities {
+  .transition-soil {
+    transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-duration: 280ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-panel,
+  .mode-btn,
+  canvas {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

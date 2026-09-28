@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Rhizosphere — an interactive soil cross-section exploring root exudates, nitrogen fixers, mycorrhizal fungi, decomposers, and pathogens." />
+  <meta name="theme-color" content="#1a120c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Rhizosphere" />
+  <title>Rhizosphere — root–microbe soil cross-section</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/rhizosphere.css" />
+</head>
+<body class="min-h-screen flex flex-col">
+  <a class="skip-link" href="#main">Skip to scene</a>
+
+  <header class="hub-masthead">
+    <div class="hub-nav">
+      <a class="hub-wordmark" href="https://frank-dixon.github.io/">Frank Dixon<span>.</span></a>
+      <nav aria-label="Portfolio hub">
+        <ul class="hub-links">
+          <li><a href="https://frank-dixon.github.io/#about">About</a></li>
+          <li><a href="https://frank-dixon.github.io/#work">Work</a></li>
+          <li><a href="https://frank-dixon.github.io/#projects">Projects</a></li>
+          <li><a href="https://frank-dixon.github.io/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="flex-1 w-full max-w-[1120px] mx-auto px-4 py-6 md:py-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+      <div class="max-w-xl">
+        <p class="m-0 font-mono text-[0.62rem] tracking-brand uppercase text-ochre/80">Microbiology · soil ecology</p>
+        <h1 class="m-0 mt-1 font-display font-normal text-[clamp(2rem,5vw,2.75rem)] tracking-wide text-root-pale leading-tight">Rhizosphere</h1>
+        <p class="mt-2 mb-0 text-[0.92rem] leading-relaxed text-mist max-w-[42ch]">
+          Pan a living soil cross-section. Tap a hotspot to meet the microbes that trade, recycle, and contest the thin world around a root.
+        </p>
+      </div>
+      <div class="flex flex-col items-start md:items-end gap-2 shrink-0">
+        <div class="flex gap-1.5" role="group" aria-label="Reading depth">
+          <button type="button" class="mode-btn" data-mode="simple" aria-pressed="true">Simple</button>
+          <button type="button" class="mode-btn" data-mode="advanced" aria-pressed="false">Advanced</button>
+        </div>
+        <p id="mode-status" class="m-0 text-[0.72rem] text-mist-dim max-w-[28ch] md:text-right" role="status"></p>
+      </div>
+    </div>
+
+    <div class="scene-frame h-[min(62vh,520px)] min-h-[320px] mb-5" id="scene-frame">
+      <canvas
+        id="soil-canvas"
+        class="absolute inset-0 w-full h-full block"
+        role="img"
+        aria-label="Interactive soil cross-section. Drag to pan. Activate hotspots for organism details."
+      ></canvas>
+      <p class="absolute bottom-3 left-3 m-0 text-[0.65rem] tracking-wide2 uppercase text-root-cream/40 pointer-events-none">
+        Drag to pan · tap a glow
+      </p>
+    </div>
+
+    <div id="organism-legend" class="flex flex-wrap gap-2 mb-6" aria-label="Organisms"></div>
+
+    <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-5 items-start">
+      <aside id="detail-panel" class="detail-panel" aria-live="polite">
+        <div id="detail-empty">
+          <p class="m-0 font-mono text-[0.62rem] tracking-widest uppercase text-mist-dim">Detail</p>
+          <h2 class="m-0 mt-1 font-display font-normal text-[1.35rem] text-root-pale">Choose a neighbor</h2>
+          <p class="mt-2 mb-0 text-[0.88rem] leading-relaxed text-mist">
+            Select a glowing hotspot in the scene—or a chip above—to read how that organism shapes life at the root surface.
+          </p>
+        </div>
+        <div id="detail-body" hidden></div>
+      </aside>
+
+      <section class="detail-panel" aria-labelledby="about-heading">
+        <h2 id="about-heading" class="m-0 font-display font-normal text-[1.25rem] text-root-pale">What you are looking at</h2>
+        <p class="mt-2 mb-3 text-[0.88rem] leading-relaxed text-mist">
+          The rhizosphere is the narrow soil sleeve under the influence of living roots. Exudates feed and recruit microbes; symbionts deliver nitrogen and phosphorus; decomposers recycle necromass; pathogens probe for weakness. This scene keeps one cross-section in focus rather than spreading thin across many screens.
+        </p>
+        <button
+          type="button"
+          id="sources-toggle"
+          class="mode-btn"
+          aria-expanded="false"
+          aria-controls="sources-panel"
+        >
+          Sources &amp; citations
+        </button>
+        <div id="sources-panel" class="mt-4" hidden>
+          <ol id="sources-list" class="m-0 pl-0 list-none"></ol>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-white/[0.06] mt-auto">
+    <div class="max-w-[1120px] mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.72rem] text-mist-dim">
+      <p class="m-0">Frank Dixon · Rhizosphere portfolio study</p>
+      <a class="text-mist hover:text-ochre no-underline transition-colors" href="https://github.com/frank-dixon/rhizosphere" rel="noopener">Source on GitHub</a>
+    </div>
+  </footer>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
