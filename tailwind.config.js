@@ -1,4 +1,4 @@
-/** Rhizosphere — soil earth-tone tokens */
+/** Rhizosphere — cream paper shell + soil scene tokens */
 module.exports = {
   content: [
     "./docs/**/*.{html,js}",
@@ -7,6 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        paper: {
+          DEFAULT: "#F5F0E6",
+          soft: "#FAF7F0",
+          card: "#FFFCF7",
+        },
         soil: {
           deep: "#1a120c",
           dark: "#2a1f16",
@@ -38,10 +43,19 @@ module.exports = {
           warm: "#b87a52",
         },
         mist: {
-          DEFAULT: "#b8a898",
-          dim: "#7a6c5c",
+          DEFAULT: "#5c5348",
+          dim: "#7a7164",
         },
-        ink: "#f0e8dc",
+        ink: {
+          DEFAULT: "#1C1917",
+          soft: "#3D3830",
+        },
+        teal: {
+          DEFAULT: "#0B8A8F",
+          bright: "#0D9FA5",
+          soft: "#E6F4F4",
+          deep: "#086E72",
+        },
         pathogen: {
           DEFAULT: "#8b3a3a",
           soft: "#a85050",

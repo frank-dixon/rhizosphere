@@ -22,7 +22,7 @@ function writeMode(mode) {
 function renderLegend(container) {
   container.innerHTML = ORGANISMS.map(
     (o) =>
-      `<button type="button" class="hotspot-chip hover:border-ochre/40 transition-soil" data-org="${o.id}" aria-label="Show ${o.label}">
+      `<button type="button" class="hotspot-chip hover:border-teal/40 transition-soil" data-org="${o.id}" aria-label="Show ${o.label}">
         <span class="dot" style="background:${o.accent}"></span>${o.label}
       </button>`
   ).join("");
@@ -32,7 +32,7 @@ function renderSources(listEl) {
   listEl.innerHTML = CITATIONS.map(
     (c) =>
       `<li class="mb-3 last:mb-0">
-        <span class="font-mono text-[0.62rem] tracking-widest uppercase text-ochre/80">${c.short}</span>
+        <span class="font-mono text-[0.62rem] tracking-widest uppercase text-teal">${c.short}</span>
         <p class="m-0 mt-1 text-[0.8rem] leading-relaxed text-mist">${c.full}</p>
       </li>`
   ).join("");
@@ -59,7 +59,7 @@ function renderDetail(panel, orgId, mode) {
       ${copy.cites
         .map((id) => {
           const c = citationById(id);
-          return c ? `<blockquote class="cite"><span class="font-mono text-[0.6rem] tracking-widest uppercase text-ochre block mb-1">${c.short}</span>${c.full}</blockquote>` : "";
+          return c ? `<blockquote class="cite"><span class="font-mono text-[0.6rem] tracking-widest uppercase text-teal block mb-1">${c.short}</span>${c.full}</blockquote>` : "";
         })
         .join("")}
     </div>`;
@@ -70,8 +70,8 @@ function renderDetail(panel, orgId, mode) {
       <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${org.accent}" aria-hidden="true"></span>
       <p class="m-0 font-mono text-[0.62rem] tracking-widest uppercase text-mist-dim">${mode === MODES.ADVANCED ? "Advanced" : "Simple"} reading</p>
     </div>
-    <h2 class="m-0 font-display font-normal text-[1.55rem] text-root-pale leading-tight">${copy.title}</h2>
-    <p class="mt-2 mb-3 text-[0.95rem] text-ochre-bright/90 leading-snug">${copy.lede}</p>
+    <h2 class="m-0 font-display font-normal text-[1.55rem] text-ink leading-tight">${copy.title}</h2>
+    <p class="mt-2 mb-3 text-[0.95rem] text-teal-deep leading-snug">${copy.lede}</p>
     <p class="m-0 text-[0.88rem] leading-relaxed text-mist">${copy.body}</p>
     ${citesHtml}
   `;
@@ -125,7 +125,7 @@ function init() {
       renderDetail(panel, id, mode);
       legend.querySelectorAll("[data-org]").forEach((chip) => {
         chip.classList.toggle("ring-1", chip.getAttribute("data-org") === id);
-        chip.classList.toggle("ring-ochre/50", chip.getAttribute("data-org") === id);
+        chip.classList.toggle("ring-teal/50", chip.getAttribute("data-org") === id);
       });
       if (id) {
         panel.scrollIntoView({ behavior: "smooth", block: "nearest" });

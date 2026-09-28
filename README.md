@@ -28,11 +28,11 @@ Serve `docs/` with any static server (for example `npx serve docs`) to exercise 
 
 ## Ship notes
 
-- GitHub Pages is **not** enabled yet. Push for review; enable Pages from the `docs/` folder only when Frank says deploy/ship.
-- Built CSS/JS under `docs/` are committed so Pages can serve without a CI build step later.
+- GitHub Pages serves from the `docs/` folder on `main` and redeploys on every push.
+- Built CSS/JS under `docs/` are committed so Pages can serve without a CI build step.
 
 ## Stack
 
-- Tailwind CSS 3 (earth-tone tokens in `tailwind.config.js`)
+- Tailwind CSS 3 (cream paper chrome + soil scene tokens in `tailwind.config.js`)
 - Plain ES modules (`src/js` → minified `docs/js` via esbuild)
 - Lightweight PWA (`manifest.webmanifest` + `sw.js`)
