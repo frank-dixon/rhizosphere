@@ -15,15 +15,15 @@
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/rhizosphere.css" />
 </head>
 <body class="min-h-screen flex flex-col">
   <a class="skip-link" href="#main">Skip to scene</a>
 
-  <header class="hub-masthead">
+  <header class="hub-masthead hs-lattice">
     <div class="hub-nav">
-      <a class="hub-wordmark" href="https://frank-dixon.github.io/">Frank Dixon<span>.</span></a>
+      <a class="hub-wordmark" href="https://frank-dixon.github.io/"><span aria-hidden="true">←</span> Frank Dixon</a>
       <nav aria-label="Portfolio hub">
         <ul class="hub-links">
           <li><a href="https://frank-dixon.github.io/#about">About</a></li>
@@ -33,13 +33,14 @@
         </ul>
       </nav>
     </div>
+    <div class="hs-rule" aria-hidden="true"></div>
   </header>
 
   <main id="main" class="flex-1 w-full max-w-[1120px] mx-auto px-4 py-7 md:py-10">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-7">
       <div class="max-w-2xl">
         <p class="m-0 font-mono text-[0.6rem] tracking-brand uppercase text-teal">Soil ecology · microbial interfaces</p>
-        <h1 class="m-0 mt-1.5 font-display font-normal text-[clamp(2.1rem,5vw,2.85rem)] tracking-wide text-ink leading-[1.1]">Rhizosphere</h1>
+        <h1 class="m-0 mt-1.5 font-display font-normal text-[clamp(1.72rem,5vw,2.34rem)] tracking-[0.02em] text-ink leading-[1.1]">Rhizosphere</h1>
         <p class="mt-3 mb-0 text-[0.92rem] leading-relaxed text-mist max-w-[48ch]">
           An interactive soil cross-section of the root–microbe interface. Pan the scene, scroll to dig through horizon depth, and select organisms along the continuum from rhizoplane to bulk soil.
         </p>
@@ -71,7 +72,7 @@
       <aside id="detail-panel" class="detail-panel" aria-live="polite">
         <div id="detail-empty">
           <p class="m-0 font-mono text-[0.6rem] tracking-widest uppercase text-mist-dim">Selection</p>
-          <h2 class="m-0 mt-1.5 font-display font-normal text-[1.35rem] text-ink">Inspect a compartment</h2>
+          <h2 class="m-0 mt-1.5 font-display font-normal text-[1.11rem] text-ink">Inspect a compartment</h2>
           <p class="mt-2.5 mb-0 text-[0.88rem] leading-relaxed text-mist">
             Choose a marker in the cross-section—or a chip above—to read how that guild shapes chemistry, competition, and exchange at the root surface. Dig depth reveals microbial fields and horizon labels.
           </p>
@@ -80,7 +81,7 @@
       </aside>
 
       <section class="detail-panel" aria-labelledby="about-heading">
-        <h2 id="about-heading" class="m-0 font-display font-normal text-[1.2rem] text-ink">The root–soil continuum</h2>
+        <h2 id="about-heading" class="m-0 font-display font-normal text-[0.98rem] text-ink">The root–soil continuum</h2>
         <p class="mt-2.5 mb-3 text-[0.86rem] leading-relaxed text-mist">
           The rhizosphere is the narrow sleeve of soil under the chemical influence of living roots. Exudates recruit and feed microbes; nitrogen-fixing rhizobia and Bradyrhizobium colonize nodules; arbuscular mycorrhizal fungi trade phosphate for carbon; saprotrophs remineralize necromass at the bulk margin; pathogens such as Fusarium probe for weakness; biofilms on the rhizoplane coordinate via quorum sensing. This study keeps one cross-section in focus.
         </p>

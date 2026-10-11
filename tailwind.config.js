@@ -74,9 +74,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
-        display: ['"Cormorant Garamond"', "Georgia", "serif"],
-        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
+        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+        display: ['Michroma', '"IBM Plex Sans"', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         brand: "0.28em",
